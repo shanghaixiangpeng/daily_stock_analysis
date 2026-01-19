@@ -609,7 +609,29 @@ class NotificationService:
             
             # 舆情情报已移至顶部显示
             
-               
+            # ========== 作战计划 ==========
+            battle = dashboard.get('battle_plan', {}) if dashboard else {}
+            if battle:
+                report_lines.extend([
+                    "### 🎯 作战计划",
+                    "",
+                ])
+                
+                # 狙击点位
+                sniper = battle.get('sniper_points', {})
+                if sniper:
+                    report_lines.extend([
+                        "**📍 狙击点位**",
+                        "",
+                        "| 点位类型 | 价格 |",
+                        "|---------|------|",
+                        f"| 🎯 理想买入点 | {sniper.get('ideal_buy', 'N/A')} |",
+                        f"| 🔵 次优买入点 | {sniper.get('secondary_buy', 'N/A')} |",
+                        f"| 🛑 止损位 | {sniper.get('stop_loss', 'N/A')} |",
+                        f"| 🎊 目标位 | {sniper.get('take_profit', 'N/A')} |",
+                        "",
+                    ])
+                
                 # 仓位策略
                 position = battle.get('position_strategy', {})
                 if position:
@@ -766,7 +788,6 @@ class NotificationService:
             
             # 狙击点位
             sniper = battle.get('sniper_points', {}) if battle else {}
-            sniper = {}
             if sniper:
                 ideal_buy = sniper.get('ideal_buy', '')
                 stop_loss = sniper.get('stop_loss', '')
