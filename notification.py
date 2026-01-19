@@ -765,6 +765,7 @@ class NotificationService:
                 lines.append("")
             
             # 狙击点位
+            sniper = battle.get('sniper_points', {}) if battle else {}
             sniper = {}
             if sniper:
                 ideal_buy = sniper.get('ideal_buy', '')
